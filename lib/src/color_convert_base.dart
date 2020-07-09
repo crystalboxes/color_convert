@@ -1,6 +1,5 @@
 import 'dart:collection';
 import 'dart:core';
-import 'dart:mirrors';
 
 import 'routes.dart';
 
@@ -113,6 +112,29 @@ const _colorLabels = {
   'gray': ['gray'],
 };
 
+const symbolToString = {
+  Symbol('rgb'): 'rgb',
+  Symbol('hsl'): 'hsl',
+  Symbol('hsv'): 'hsv',
+  Symbol('hwb'): 'hwb',
+  Symbol('cmyk'): 'cmyk',
+  Symbol('xyz'): 'xyz',
+  Symbol('lab'): 'lab',
+  Symbol('lch'): 'lch',
+  Symbol('hex'): 'hex',
+  Symbol('keyword'): 'keyword',
+  Symbol('ansi16'): 'ansi16',
+  Symbol('ansi256'): 'ansi256',
+  Symbol('hcg'): 'hcg',
+  Symbol('apple'): 'apple',
+  Symbol('gray'): 'gray',
+};
+
+String getMemberName(Symbol symbol) {
+  return symbolToString[symbol];
+  // symbol.toString();
+}
+
 class _ConvertRouteReceiver {
   String from = '';
   String to = '';
@@ -120,7 +142,7 @@ class _ConvertRouteReceiver {
   @override
   dynamic noSuchMethod(Invocation msg) {
     // from
-    var memberName = MirrorSystem.getName(msg.memberName);
+    var memberName = getMemberName(msg.memberName);
     if (from != '') {
       if (memberName == 'channels') {
         return _colorChannels[from];
@@ -156,7 +178,7 @@ class _Convert {
   final route = _ConvertRouteReceiver() as dynamic;
   @override
   _ConvertRouteReceiver noSuchMethod(Invocation msg) {
-    route.from = MirrorSystem.getName(msg.memberName);
+    route.from = getMemberName(msg.memberName);
     return route;
   }
 }
