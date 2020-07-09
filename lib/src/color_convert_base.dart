@@ -132,7 +132,6 @@ const symbolToString = {
 
 String getMemberName(Symbol symbol) {
   return symbolToString[symbol];
-  // symbol.toString();
 }
 
 class _ConvertRouteReceiver {
