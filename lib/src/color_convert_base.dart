@@ -42,16 +42,16 @@ dynamic _convert(String from, String to, dynamic value) {
   }
 
   if (result is List) {
-    return ConversionResult(result);
+    return _ConversionResult(result);
   }
   return result;
 }
 
 bool _isValidColorSpace(String name) => colorSpaceNames.contains(name);
 
-class ConversionResult extends Object with ListMixin<int> {
+class _ConversionResult extends Object with ListMixin<int> {
   final List<num> _list = [];
-  ConversionResult(List<num> l) {
+  _ConversionResult(List<num> l) {
     l.forEach((element) {
       _list.add(element);
     });
@@ -128,6 +128,10 @@ const symbolToString = {
   Symbol('hcg'): 'hcg',
   Symbol('apple'): 'apple',
   Symbol('gray'): 'gray',
+  // utility
+  Symbol('raw'): 'raw',
+  Symbol('labels'): 'labels',
+  Symbol('channels'): 'channels',
 };
 
 String getMemberName(Symbol symbol) {
@@ -163,7 +167,7 @@ class _ConvertRouteReceiver {
     }
     if (_isValidColorSpace(from) && _isValidColorSpace(to_)) {
       var result = _convert(from, to_, arg);
-      if (isRaw && result is ConversionResult) {
+      if (isRaw && result is _ConversionResult) {
         to = '';
         return result.raw;
       }

@@ -1,7 +1,8 @@
 name: color_convert
 description: A color conversion library for Dart. It converts all ways between rgb, hsl, hsv, hwb, cmyk, ansi, ansi16, hex strings, and CSS keywords (will round to closest).
-version: 1.0.1
+version: 1.0.2
 repository: https://github.com/crystalboxes/color_convert
+homepage: https://github.com/crystalboxes/color_convert
 
 environment:
   sdk: '>=2.8.1 <3.0.0'

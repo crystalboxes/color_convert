@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:core';
 import 'dart:math';
-import 'package:color_convert/src/rgb.dart' as rgbConv;
+import 'package:color_convert/src/rgb.dart' as rgb_conv;
 
 List<num> rgb(ListBase<num> hsv) {
   final h = hsv[0] / 60;
@@ -50,7 +50,7 @@ List<num> hsl(ListBase<num> hsv) {
 }
 
 int ansi16(ListBase<num> hsv) =>
-    rgbConv.ansi16(hsv, saturation: hsv[1].round());
+    rgb_conv.ansi16(hsv, saturation: hsv[1].round());
 
 List<num> hcg(ListBase<num> hsv) {
   final s = hsv[1] / 100;

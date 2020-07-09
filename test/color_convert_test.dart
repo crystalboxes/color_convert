@@ -246,7 +246,7 @@ void main() {
   });
 
 // Raw functions
-  round(List<num> vals) {
+  List<num> round(List<num> vals) {
     for (var i = 0; i < vals.length; i++) {
       vals[i] = num.parse(vals[i].toStringAsFixed(1));
     }
