@@ -167,9 +167,9 @@ class _ConvertRouteReceiver {
     }
     if (_isValidColorSpace(from) && _isValidColorSpace(to_)) {
       var result = _convert(from, to_, arg);
-      if (isRaw && result is _ConversionResult) {
+      if (isRaw) {
         to = '';
-        return result.raw;
+        if (result is _ConversionResult) return result.raw;
       }
       return result;
     }
