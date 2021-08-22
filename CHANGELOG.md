@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Added null-saftey
+
 ## 1.0.2
 
 - Package related fixes
