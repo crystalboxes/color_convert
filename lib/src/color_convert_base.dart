@@ -3,8 +3,8 @@ import 'dart:core';
 
 import 'routes.dart';
 
-List<String> _getRoute(List<String> path, String current, String to) {
-  for (final kv in conversionRoutes[current].entries) {
+List<String?> _getRoute(List<String?> path, String current, String? to) {
+  for (final kv in conversionRoutes[current]!.entries) {
     final key = kv.key;
     if (path.contains(key)) {
       continue;
@@ -13,7 +13,7 @@ List<String> _getRoute(List<String> path, String current, String to) {
       path.add(current);
     }
     path.add(key);
-    if (conversionRoutes[key].containsKey(to)) {
+    if (conversionRoutes[key]!.containsKey(to)) {
       path.add(to);
       return path;
     } else {
@@ -26,28 +26,28 @@ List<String> _getRoute(List<String> path, String current, String to) {
   return path;
 }
 
-dynamic _convert(String from, String to, dynamic value) {
+dynamic _convert(String from, String? to, dynamic value) {
   dynamic result;
 
-  if (conversionRoutes[from].containsKey(to)) {
-    result = (conversionRoutes[from][to](value));
+  if (conversionRoutes[from]!.containsKey(to)) {
+    result = (conversionRoutes[from]![to!](value));
   } else {
     var path = _getRoute([], from, to);
-    var currentFrom = from;
+    String? currentFrom = from;
     result = value;
     for (var currentTo in path) {
-      result = conversionRoutes[currentFrom][currentTo](result);
+      result = conversionRoutes[currentFrom!]![currentTo!](result);
       currentFrom = currentTo;
     }
   }
 
   if (result is List) {
-    return _ConversionResult(result);
+    return _ConversionResult(result as List<num>);
   }
   return result;
 }
 
-bool _isValidColorSpace(String name) => colorSpaceNames.contains(name);
+bool _isValidColorSpace(String? name) => colorSpaceNames.contains(name);
 
 class _ConversionResult extends Object with ListMixin<int> {
   final List<num> _list = [];
@@ -134,13 +134,13 @@ const symbolToString = {
   Symbol('channels'): 'channels',
 };
 
-String getMemberName(Symbol symbol) {
+String? getMemberName(Symbol symbol) {
   return symbolToString[symbol];
 }
 
 class _ConvertRouteReceiver {
   String from = '';
-  String to = '';
+  String? to = '';
 
   @override
   dynamic noSuchMethod(Invocation msg) {

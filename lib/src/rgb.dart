@@ -94,7 +94,7 @@ List<num> hwb(List<num> rgb) {
   final r = rgb[0];
   final g = rgb[1];
   var b = rgb[2].toDouble();
-  final h = hsl(rgb)[0];
+  final h = hsl(rgb as ListBase<num>)[0];
   final w = 1 / 255 * min(r, min(g, b));
   b = 1 - 1 / 255 * max(r, max(g, b));
   return [h, w * 100, b * 100];
@@ -118,19 +118,19 @@ List<num> cmyk(List<num> rgb) {
   ];
 }
 
-String keyword(ListBase<num> rgb) {
+String? keyword(ListBase<num> rgb) {
   if (reverseKeywords.containsValue(rgb)) {
     return reverseKeywords[rgb];
   }
 
   var currentClosestDistance = double.infinity;
-  String currentClosestKeyword;
+  String? currentClosestKeyword;
 
   for (final keyword in cssKeywords.keys) {
-    var value = cssKeywords[keyword];
+    var value = cssKeywords[keyword]!;
 
     // Compute comparative distance
-    final distance = _comparativeDistance(rgb, value);
+    final distance = _comparativeDistance(rgb, value as ListBase<num>);
 
     // Check if its less, if so set as closest
     if (distance < currentClosestDistance) {
@@ -148,9 +148,9 @@ List<num> xyz(List<num> rgb) {
   var b = rgb[2] / 255.0;
 
   // Assume sRGB
-  r = r > 0.04045 ? pow((r + 0.055) / 1.055, 2.4) : (r / 12.92);
-  g = g > 0.04045 ? pow((g + 0.055) / 1.055, 2.4) : (g / 12.92);
-  b = b > 0.04045 ? pow((b + 0.055) / 1.055, 2.4) : (b / 12.92);
+  r = r > 0.04045 ? pow((r + 0.055) / 1.055, 2.4) as double : (r / 12.92);
+  g = g > 0.04045 ? pow((g + 0.055) / 1.055, 2.4) as double : (g / 12.92);
+  b = b > 0.04045 ? pow((b + 0.055) / 1.055, 2.4) as double : (b / 12.92);
 
   final x = (r * 0.4124564) + (g * 0.3575761) + (b * 0.1804375);
   final y = (r * 0.2126729) + (g * 0.7151522) + (b * 0.072175);
@@ -169,9 +169,9 @@ List<num> lab(List<num> rgb) {
   y /= 100;
   z /= 108.883;
 
-  x = x > 0.008856 ? pow(x, (1 / 3)) : (7.787 * x) + (16 / 116);
-  y = y > 0.008856 ? pow(y, (1 / 3)) : (7.787 * y) + (16 / 116);
-  z = z > 0.008856 ? pow(z, (1 / 3)) : (7.787 * z) + (16 / 116);
+  x = x > 0.008856 ? pow(x, (1 / 3)) as double : (7.787 * x) + (16 / 116);
+  y = y > 0.008856 ? pow(y, (1 / 3)) as double : (7.787 * y) + (16 / 116);
+  z = z > 0.008856 ? pow(z, (1 / 3)) as double : (7.787 * z) + (16 / 116);
 
   final l = (116 * y) - 16;
   final a = 500 * (x - y);
@@ -180,12 +180,12 @@ List<num> lab(List<num> rgb) {
   return [l, a, b];
 }
 
-int ansi16(List<num> rgb, {int saturation}) {
+int ansi16(List<num> rgb, {int? saturation}) {
   final r = rgb[0];
   final g = rgb[1];
   final b = rgb[2];
 
-  var value = saturation ?? hsv(rgb)[2]; // Hsv -> ansi16 optimization
+  var value = saturation ?? hsv(rgb as ListBase<num>)[2]; // Hsv -> ansi16 optimization
 
   value = (value / 50).round();
 

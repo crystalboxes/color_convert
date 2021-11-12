@@ -43,7 +43,7 @@ Map<String, Map<String, dynamic>> conversionRoutes = {
     'keyword': rgb.keyword,
     'xyz': rgb.xyz,
     'lab': rgb.lab,
-    'lch': (x) => lab.lch(rgb.lab(x)),
+    'lch': (x) => lab.lch(rgb.lab(x) as ListBase<num>),
     'ansi16': rgb.ansi16,
     'ansi256': rgb.ansi256,
     'hex': rgb.hex,
@@ -75,7 +75,7 @@ Map<String, Map<String, dynamic>> conversionRoutes = {
   'xyz': {
     'rgb': xyz.rgb,
     'lab': xyz.lab,
-    'lch': (x) => lab.lch(xyz.lab(x)),
+    'lch': (x) => lab.lch(xyz.lab(x) as ListBase<num>),
   },
   'lab': {
     'xyz': lab.xyz,
