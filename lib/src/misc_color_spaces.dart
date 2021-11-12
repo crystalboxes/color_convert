@@ -9,14 +9,14 @@ List<num> lch2lab(ListBase<num> lch) {
   final h = lch[2];
 
   final hr = h / 360 * 2 * PI;
-  final a = c * cos(hr);
-  final b = c * sin(hr);
+  final num a = c * cos(hr);
+  final num b = c * sin(hr);
 
   return [l, a, b];
 }
 
 List<num> hex2rgb(dynamic hex) {
-  int integer;
+  late int integer;
 
   if (hex is String) {
     if (hex.length == 3) {
@@ -44,13 +44,13 @@ List<num> ansi162rgb(num args) {
 
   final mult = ((args > 50 ? 1 : 0) + 1) * 0.5;
   final r = (((color as int) & 1) * mult) * 255;
-  final g = ((((color as int) >> 1) & 1) * mult) * 255;
-  final b = ((((color as int) >> 2) & 1) * mult) * 255;
+  final g = (((color >> 1) & 1) * mult) * 255;
+  final b = (((color >> 2) & 1) * mult) * 255;
 
   return [r, g, b];
 }
 
-List<num> ansi2562rgb(num args) {
+List<num?> ansi2562rgb(num args) {
   // Handle greyscale
   if (args >= 232) {
     final c = (args - 232) * 10 + 8;
