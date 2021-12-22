@@ -37,7 +37,7 @@ List<num> rgb(ListBase<num> hwb) {
 
   final n = wh + f * (v - wh); // Linear interpolation
 
-  double r, g, b;
+  double r = 0, g = 0, b = 0;
 
   if (i == 6 || i == 0) {
     r = v;
